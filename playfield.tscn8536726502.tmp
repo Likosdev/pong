@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://h4a7ajuwpnyy"]
+
+[ext_resource type="Script" uid="uid://c86m8qn3t4yq7" path="res://player_paddle.gd" id="1_0cyf1"]
+[ext_resource type="Script" uid="uid://uojqs4yctw5k" path="res://ball.gd" id="2_3emq6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_28vkq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cyf1"]
+size = Vector2(800, 15)
+
+[node name="Playfield" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [224.0]
+metadata/_edit_vertical_guides_ = [400.0]
+
+[node name="Player_1" type="CharacterBody2D" parent="."]
+position = Vector2(64, 224)
+motion_mode = 1
+script = ExtResource("1_0cyf1")
+upper_limit = 400.0
+lower_limit = 40.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Player_1"]
+polygon = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player_1"]
+polygon = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
+
+[node name="Player_2" type="CharacterBody2D" parent="."]
+position = Vector2(736, 224)
+motion_mode = 1
+script = ExtResource("1_0cyf1")
+upper_limit = 400.0
+lower_limit = 40.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Player_2"]
+polygon = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player_2"]
+polygon = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(400, 224)
+motion_mode = 1
+script = ExtResource("2_3emq6")
+
+[node name="Polygon2D" type="Polygon2D" parent="Ball"]
+antialiased = true
+polygon = PackedVector2Array(-10, 0, -9, -4, -7, -7, -4, -9, 0, -10, 4, -9, 7, -7, 9, -4, 10, 0, 9, 4, 7, 7, 4, 9, 0, 10, -5, 9, -9, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_28vkq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(400, 224)
+
+[node name="Upper_Bounds" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Upper_Bounds"]
+position = Vector2(400, 8)
+shape = SubResource("RectangleShape2D_0cyf1")
+
+[node name="Lower_Bounds2" type="StaticBody2D" parent="."]
+position = Vector2(0, 432)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lower_Bounds2"]
+position = Vector2(400, 8.5)
+shape = SubResource("RectangleShape2D_0cyf1")

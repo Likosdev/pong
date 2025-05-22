@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://6fjvtfcsc4xx"]
+
+[ext_resource type="PackedScene" uid="uid://dtsxpdt2yvsxg" path="res://ball.tscn" id="1_mtud8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhts7"]
+size = Vector2(800, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06t4h"]
+size = Vector2(32, 480)
+
+[node name="PlaceholderWorld" type="Node2D"]
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+
+[node name="Upper" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(400, -8)
+shape = SubResource("RectangleShape2D_rhts7")
+
+[node name="Bottomn" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(400, 456)
+shape = SubResource("RectangleShape2D_rhts7")
+
+[node name="Bottomn2" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(816, 224)
+shape = SubResource("RectangleShape2D_06t4h")
+
+[node name="Bottomn3" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-16, 224)
+shape = SubResource("RectangleShape2D_06t4h")
+
+[node name="Ball" parent="." instance=ExtResource("1_mtud8")]
+position = Vector2(384, 256)
+ball_speed = 400.0

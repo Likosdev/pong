@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtsxpdt2yvsxg"]
+
+[ext_resource type="Script" uid="uid://uojqs4yctw5k" path="res://ball.gd" id="1_x8fbi"]
+[ext_resource type="AudioStream" uid="uid://bwdl5sys18naj" path="res://sounds/bump2.sfxr" id="2_41u45"]
+[ext_resource type="AudioStream" uid="uid://bgmtdh2nokgob" path="res://sounds/bump1.sfxr" id="3_hgol0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_28vkq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ktgx5"]
+random_pitch = 2.0
+streams_count = 2
+stream_0/stream = ExtResource("2_41u45")
+stream_1/stream = ExtResource("3_hgol0")
+
+[node name="Ball" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_x8fbi")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+antialiased = true
+polygon = PackedVector2Array(-10, 0, -9, -4, -7, -7, -4, -9, 0, -10, 4, -9, 7, -7, 9, -4, 10, 0, 9, 4, 7, 7, 4, 9, 0, 10, -5, 9, -9, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_28vkq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ktgx5")
+max_polyphony = 3
+bus = &"SFX"

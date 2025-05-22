@@ -1,0 +1,25 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://d2mr58vmo3257"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_di7s0"]
+resource_name = "Reverb"
+room_size = 0.1
+damping = 0.9
+spread = 0.1
+wet = 0.09
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_di7s0"]
+resource_name = "Compressor"
+threshold = -2.1
+release_ms = 391.0
+
+[resource]
+bus/1/name = &"SFX"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_di7s0")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectCompressor_di7s0")
+bus/1/effect/1/enabled = true

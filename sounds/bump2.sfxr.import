@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://bwdl5sys18naj"
+path="res://.godot/imported/bump2.sfxr-0cf4a28af793a597ff438c122b71bc1f.sample"
+
+[deps]
+
+source_file="res://sounds/bump2.sfxr"
+dest_files=["res://.godot/imported/bump2.sfxr-0cf4a28af793a597ff438c122b71bc1f.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

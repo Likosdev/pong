@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://coucygal80vd3"]
+
+[ext_resource type="Script" uid="uid://cjrockktvul51" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://6fjvtfcsc4xx" path="res://placeholder_world.tscn" id="2_0xm2m"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0xm2m")
+
+[node name="PlaceholderWorld" parent="." instance=ExtResource("2_0xm2m")]
+
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32
+anchor_right = 0.72
+anchor_bottom = 1.0
+offset_left = -3.05176e-05
+offset_top = 56.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Menu"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 57
+text = "LikosPong"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+
+[node name="BtnPlayVsAi" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "Play vs AI
+"
+
+[node name="BtnPVP" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "Player vs Player
+"
+
+[node name="BtnQuit" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="button_down" from="Menu/VBoxContainer/BtnPlayVsAi" to="." method="_on_btn_play_vs_ai_button_down"]
+[connection signal="button_down" from="Menu/VBoxContainer/BtnPVP" to="." method="_on_btn_pvp_button_down"]
+[connection signal="button_down" from="Menu/VBoxContainer/BtnQuit" to="." method="_on_btn_quit_button_down"]

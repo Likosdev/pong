@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://h4a7ajuwpnyy"]
+
+[ext_resource type="Script" uid="uid://cbg2c157hp3kq" path="res://playfield.gd" id="1_s8ler"]
+[ext_resource type="PackedScene" uid="uid://db7qlkyoqoyn3" path="res://paddle.tscn" id="2_s8ler"]
+[ext_resource type="Script" uid="uid://d3718l7dwwmkv" path="res://goal.gd" id="3_28vkq"]
+[ext_resource type="PackedScene" uid="uid://dtsxpdt2yvsxg" path="res://ball.tscn" id="3_s8ler"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cyf1"]
+size = Vector2(656, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8ler"]
+size = Vector2(16, 576)
+
+[node name="Playfield" type="Node2D" node_paths=PackedStringArray("ball", "Player_A", "Player_B", "Goal_Player_A", "Goal_Player_B")]
+script = ExtResource("1_s8ler")
+ball = NodePath("Ball")
+Player_A = NodePath("Player_1")
+Player_B = NodePath("Player_2")
+Goal_Player_A = NodePath("Goal_Player_A")
+Goal_Player_B = NodePath("Goal_Player_B")
+metadata/_edit_vertical_guides_ = [400.0, 72.0, 728.0]
+
+[node name="Player_1" parent="." instance=ExtResource("2_s8ler")]
+position = Vector2(64, 224)
+
+[node name="Player_2" parent="." instance=ExtResource("2_s8ler")]
+position = Vector2(736, 224)
+
+[node name="Ball" parent="." instance=ExtResource("3_s8ler")]
+position = Vector2(400, 224)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(400, 224)
+
+[node name="Upper_Bounds" type="StaticBody2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Upper_Bounds"]
+position = Vector2(400, 8)
+shape = SubResource("RectangleShape2D_0cyf1")
+
+[node name="Lower_Bounds2" type="StaticBody2D" parent="."]
+position = Vector2(0, 448)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lower_Bounds2"]
+position = Vector2(400, 8.5)
+shape = SubResource("RectangleShape2D_0cyf1")
+
+[node name="Goal_Player_A" type="Area2D" parent="."]
+position = Vector2(-32, 0)
+script = ExtResource("3_28vkq")
+side = "PLAYER_A"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal_Player_A"]
+position = Vector2(0, 224)
+shape = SubResource("RectangleShape2D_s8ler")
+
+[node name="Goal_Player_B" type="Area2D" parent="."]
+position = Vector2(832, 0)
+script = ExtResource("3_28vkq")
+side = "PLAYER_B"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal_Player_B"]
+position = Vector2(0, 224)
+shape = SubResource("RectangleShape2D_s8ler")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Score_Label" type="Label" parent="CanvasLayer/UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 360.0
+offset_top = 8.0
+offset_right = 432.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 41
+text = "0 : 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Announce_Win_Label" type="Label" parent="CanvasLayer/UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32
+anchor_top = 0.284
+anchor_right = 0.67
+anchor_bottom = 0.569
+offset_left = -64.0
+offset_top = 0.199997
+offset_right = 56.0
+offset_bottom = -0.0499878
+theme_override_font_sizes/font_size = 50
+text = "Player Won"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Goal_Player_A" to="Goal_Player_A" method="_on_body_entered"]
+[connection signal="body_entered" from="Goal_Player_B" to="Goal_Player_B" method="_on_body_entered"]

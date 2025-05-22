@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://db7qlkyoqoyn3"]
+
+[ext_resource type="Script" uid="uid://c86m8qn3t4yq7" path="res://player_paddle.gd" id="1_0sbc1"]
+
+[node name="Player_1" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_0sbc1")
+upper_limit = 400.0
+lower_limit = 40.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
+uv = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-8, -32, 8, -32, 8, 32, -8, 32)
