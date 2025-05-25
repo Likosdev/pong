@@ -1,6 +1,9 @@
 extends CharacterBody2D
 class_name PlayerPaddle
 
+
+signal ball_collision(global_position: Vector2)
+
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
 @onready var polygon_2d: Polygon2D = $Polygon2D
 
@@ -16,7 +19,29 @@ var lower_limit : float = 0
 @export 
 var speed = 300.0
 
-@export var ball : Ball = null
+@export var ai_speed_modifier : float = 0.65
+
+@export 
+var ball : Ball = null
+
+@export_category("Difficulty Modifiers")
+@export var easy_difficulty_speed : float = 0.65
+@export var medium_difficulty_speed : float = 0.75
+@export var hard_difficulty_speed : float = 0.9
+
+@export 
+var ai_difficulty : int = 0 : 
+	set(value):
+		match value:
+			0: 
+				ai_speed_modifier = easy_difficulty_speed
+			1: 
+				ai_speed_modifier = medium_difficulty_speed
+			2: 
+				ai_speed_modifier = hard_difficulty_speed
+			_: 
+				ai_difficulty = easy_difficulty_speed
+		ai_difficulty = value
 
 var BALL_SPEED_MODIFIER : int = 75
 var BALL_Y_DIRECTION_MODIFIER : float = .5
@@ -54,9 +79,11 @@ func _process_player_input(delta : float):
 	))
 
 	velocity = direction * speed * delta
-	@warning_ignore("unused_variable")
-	# i will need this! 
-	var col = move_and_collide(velocity)
+
+	move_and_collide(velocity)
+
+
+
 	
 func _process_ai(delta : float):
 	if ball.position.y > self.position.y + 32: # paddle_height
@@ -65,20 +92,11 @@ func _process_ai(delta : float):
 		direction.y = -1
 	else:
 		# avoid stuttering around zero and make ai acutally beatable
-		direction.y = lerp(direction.y, .0 , delta / 2) 
+		direction.y = lerp(direction.y, .0 , delta) 
 
-	velocity = direction * ( speed * .65 ) * delta
-	@warning_ignore("unused_variable") # i will need this!
-	var col = move_and_collide(velocity)
+	velocity = direction * ( speed * ai_speed_modifier ) * delta
 
-
-	
-func _move_ai_via_lerp(delta: float):
-	self.position.y = clamp(
-		lerpf(self.position.y, ball.position.y, 2 * delta),
-		0 + 32,
-		get_viewport().size.y - 32
-	)
+	move_and_collide(velocity)
 
 
 func calculate_speed_and_direction(contact_position: Vector2, body : PhysicsBody2D):
@@ -96,3 +114,4 @@ func calculate_speed_and_direction(contact_position: Vector2, body : PhysicsBody
 			body.direction.y = body.direction.normalized().y
 		# x can always be reversed after a paddle collision
 		body.direction.x = -body.direction.x
+		ball_collision.emit(contact_position)

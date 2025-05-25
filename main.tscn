@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://coucygal80vd3"]
+[gd_scene load_steps=5 format=3 uid="uid://coucygal80vd3"]
 
 [ext_resource type="Script" uid="uid://cjrockktvul51" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://6fjvtfcsc4xx" path="res://placeholder_world.tscn" id="2_0xm2m"]
+[ext_resource type="AudioStream" uid="uid://ss70rcyrwudm" path="res://sounds/Sigma Slide - The Soundlings.mp3" id="3_h2yge"]
+
+[sub_resource type="Environment" id="Environment_0xm2m"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_strength = 0.74
+glow_blend_mode = 1
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -12,29 +20,74 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0xm2m")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0xm2m")
+
 [node name="PlaceholderWorld" parent="." instance=ExtResource("2_0xm2m")]
 
 [node name="Menu" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.32
-anchor_right = 0.72
-anchor_bottom = 1.0
-offset_left = -3.05176e-05
-offset_top = 56.0
-offset_bottom = -58.0
+anchor_top = 0.108889
+anchor_right = 0.67
+anchor_bottom = 0.987
+offset_bottom = -0.150009
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Menu"]
+self_modulate = Color(2, 2, 2, 1)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 2
 theme_override_font_sizes/font_size = 57
 text = "LikosPong"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 2
+size_flags_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "AI Difficulty"
+
+[node name="OptionButton" type="OptionButton" parent="Menu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 0
+item_count = 3
+popup/item_0/text = "EASY"
+popup/item_0/id = 0
+popup/item_1/text = "MEDIUM"
+popup/item_1/id = 1
+popup/item_2/text = "HARD"
+popup/item_2/id = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LabelPointsToWin" type="Label" parent="Menu/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Score {0 }to win: "
+
+[node name="HSlider" type="HSlider" parent="Menu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+rounded = true
 
 [node name="BtnPlayVsAi" type="Button" parent="Menu/VBoxContainer"]
 layout_mode = 2
@@ -51,6 +104,12 @@ layout_mode = 2
 text = "Quit
 "
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_h2yge")
+volume_db = -6.813
+autoplay = true
+
+[connection signal="value_changed" from="Menu/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="button_down" from="Menu/VBoxContainer/BtnPlayVsAi" to="." method="_on_btn_play_vs_ai_button_down"]
 [connection signal="button_down" from="Menu/VBoxContainer/BtnPVP" to="." method="_on_btn_pvp_button_down"]
 [connection signal="button_down" from="Menu/VBoxContainer/BtnQuit" to="." method="_on_btn_quit_button_down"]

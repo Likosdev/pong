@@ -17,6 +17,7 @@ motion_mode = 1
 script = ExtResource("1_x8fbi")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+self_modulate = Color(1.5, 1.3, 1, 1)
 antialiased = true
 polygon = PackedVector2Array(-10, 0, -9, -4, -7, -7, -4, -9, 0, -10, 4, -9, 7, -7, 9, -4, 10, 0, 9, 4, 7, 7, 4, 9, 0, 10, -5, 9, -9, 5)
 
